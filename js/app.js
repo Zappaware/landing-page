@@ -34,6 +34,7 @@ let paraContentTwo = 'Aliquam a convallis justo. Vivamus venenatis, erat eget pu
      let count = num;
      for (i=0; i <= num-2; i++) {
          let  newSection = document.createElement('section');
+         newSection.setAttribute('id', `Section${count}` );
          let newDiv = document.createElement('div');
          newDiv.classList.add('landing__container');
          let newHeader = document.createElement('h2');
