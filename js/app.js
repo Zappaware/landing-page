@@ -63,9 +63,13 @@ let buildNav = () => {
     let count = 1;
     for (i=0; i < 6; i++){
         let newLiElement = document.createElement('li');
+        let newAchor = document.createElement('a');
+        newLiElement.appendChild(newAchor);
         let liText = `Section-${count}`;
-        newLiElement.textContent = liText;
-        newLiElement.style.cssText = 'color:black; font-size: 1.5rem; margin: 25px 50px 25px 50px; padding: 10px 0; text-align: center'
+        newAchor.textContent = liText;
+        newAchor.setAttribute('href', 'https://www.facebook.com');
+        newAchor.setAttribute('target', '_blank');
+        newLiElement.style.cssText = 'color:black; font-size: 1.5rem; margin: 25px 20px; padding: 10px 0; text-align: center';
         navBar.appendChild(newLiElement);
         count += 1;
     };
