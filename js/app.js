@@ -35,6 +35,7 @@ let addLiCount = 4;
  * Start Helper Functions
  * 
 */
+//This function helps to add more anchors by creating new elements, style them and adding them with appendChild method.
 let addMoreAchors = () => {
     let newLiElement = document.createElement('li');
     newLiElement.style.cssText = styleElements;
@@ -48,6 +49,8 @@ let addMoreAchors = () => {
     navMenu.appendChild(navBar);
     addLiCount += 1;
 };
+
+//This function works the same way the one it is up
  function addSection (){
          let  newSection = document.createElement('section');
          newSection.setAttribute('id', `Section-${addSectionCount}`);
@@ -101,7 +104,7 @@ window.addEventListener('scroll', () => {
             return;
         }
         let section = document.querySelector(element.hash);
-        // Ignore scrolling if there is no section href
+        // Ignore scrolling if the section doesn't have href
         if (!section) {
             return;
         }
