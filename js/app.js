@@ -19,28 +19,45 @@
 */
 let navMenu = document.querySelector('.navbar__menu');
 let navBar = document.getElementById('navbar__list');
+let menuElement = document.createElement('li');
+let menuAchor = document.createElement('a');
 let pageHeader = document.querySelector('.page__header');
 let mainSelec = document.querySelector('main');
+const styleElements = 'color:black; font-size: 1.5rem; margin: 25px 20px; padding: 10px 0; text-align: center'; 
+const menuStyle = 'width:100%; height:100px; display:flex; flexDirection: row';
 let paraContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod';
-
 let paraContentTwo = 'Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.'
+let addSectionCount = 4;
+let addLiCount = 4;
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
- function addSection (num){
-     let count = num;
-     for (i=0; i <= num-2; i++) {
+let addMoreAchors = () => {
+    let newLiElement = document.createElement('li');
+    newLiElement.style.cssText = styleElements;
+    let newAnchor = document.createElement('a');
+    newAnchor.setAttribute('href', `#Section-${addLiCount}`);
+    let liText = `Section-${addLiCount}`;
+    newAnchor.textContent = liText;
+    newAnchor.style.cssText = styleElements;
+    newLiElement.appendChild(newAnchor);
+    navBar.appendChild(newLiElement);
+    navMenu.appendChild(navBar);
+    addLiCount += 1;
+};
+ function addSection (){
          let  newSection = document.createElement('section');
-         newSection.setAttribute('id', `Section${count}` );
+         newSection.setAttribute('id', `Section-${addSectionCount}`);
+         newSection.setAttribute('data-nav', `Section ${addSectionCount}`)
          let newDiv = document.createElement('div');
          newDiv.classList.add('landing__container');
          let newHeader = document.createElement('h2');
          let newPara = document.createElement('p');
          let newParaTwo = document.createElement('p');
-         newHeader.textContent = `Section-${count}`;
+         newHeader.textContent = `Section ${addSectionCount}`;
          newPara.textContent = paraContent;
          newParaTwo.textContent = paraContentTwo;
          newDiv.appendChild(newHeader);
@@ -48,8 +65,7 @@ let paraContentTwo = 'Aliquam a convallis justo. Vivamus venenatis, erat eget pu
          newDiv.appendChild(newParaTwo);
          newSection.appendChild(newDiv);
          mainSelec.appendChild(newSection);
-         count +=1;
-   }
+         addSectionCount +=1;
  };
 
 
@@ -62,15 +78,14 @@ let paraContentTwo = 'Aliquam a convallis justo. Vivamus venenatis, erat eget pu
 // build the nav
 let buildNav = () => {
     let count = 1;
-    for (i=0; i < 6; i++){
+    for (i=0; i < 3; i++){
         let newLiElement = document.createElement('li');
-        let newAchor = document.createElement('a');
-        newLiElement.appendChild(newAchor);
+        let newAnchor = document.createElement('a');
+        newAnchor.setAttribute('href', `#Section-${count}`)
+        newLiElement.appendChild(newAnchor);
         let liText = `Section-${count}`;
-        newAchor.textContent = liText;
-        newAchor.setAttribute('href', 'https://www.facebook.com');
-        newAchor.setAttribute('target', '_blank');
-        newLiElement.style.cssText = 'color:black; font-size: 1.5rem; margin: 25px 20px; padding: 10px 0; text-align: center';
+        newAnchor.textContent = liText;
+        newLiElement.style.cssText = styleElements;
         navBar.appendChild(newLiElement);
         count += 1;
     };
@@ -78,10 +93,55 @@ let buildNav = () => {
 
 
 // Add class 'active' to section when near top of viewport
+window.addEventListener('scroll', () => {
+    let fromTop = window.scrollY;
+    const navLinks = document.querySelectorAll('.navbar__menu li a');
+    navLinks.forEach((element) => {
+        if (!element.hash) {
+            return;
+        }
+        let section = document.querySelector(element.hash);
+        // Ignore scrolling if there is no section href
+        if (!section) {
+            return;
+        }
+
+        // Add or remove active class
+        if (section.offsetTop <= fromTop + 200 && section.offsetTop + section.offsetHeight - 200 > fromTop) {
+            section.classList.add('your-active-class');
+        } else {
+            section.classList.remove('your-active-class');
+        }
+    });
+ });
 
 
 // Scroll to anchor ID using scrollTO event
 
+const scrollToSection = (target) => {
+    let section = document.querySelector(target.hash);
+    let height = section.offsetTop - navBar.offsetHeight;
+
+    scrollTo({
+        top: height,
+        behavior: 'smooth'
+    });
+};
+
+
+navBar.addEventListener('click', function(e) {
+    event.preventDefault();
+    
+    if (e.target.nodeName == 'A'){
+        scrollToSection(e.target);
+        return;
+    }
+
+    if (e.target.nodeName == 'LI') {
+        scrollToSection(e.target.children[0]);
+        return;
+    } 
+});
 
 /**
  * End Main Functions
@@ -91,18 +151,21 @@ let buildNav = () => {
 
 // Build menu 
 
-navBar.style.width = '100%';
-navBar.style.height = '100px';
-navBar.style.display = 'flex';
-navBar.style.flexDirection = 'row';
+navBar.style.cssText = menuStyle;
 navBar.style.flexWrap = 'wrap';
 navBar.style.justifyContent= 'space-evenly';
+menuAchor.textContent = 'New Section';
+menuAchor.style.cssText = styleElements;
+menuAchor.addEventListener('click', ()=> {
+    addSection();
+    addMoreAchors(); 
+});
+menuElement.style.cssText = styleElements;
+menuElement.appendChild(menuAchor);
+navBar.appendChild(menuElement);
 navMenu.appendChild(navBar);
 
 
-// Scroll to section on link click
 
-// Set sections as active
 
 buildNav();
-addSection(4);
