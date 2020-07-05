@@ -23,8 +23,8 @@ let menuElement = document.createElement('li');
 let menuAchor = document.createElement('a');
 let pageHeader = document.querySelector('.page__header');
 let mainSelec = document.querySelector('main');
-const styleElements = 'color:black; font-size: 1.5rem; margin: 25px 20px; padding: 10px 0; text-align: center'; 
-const menuStyle = 'width:100%; height:100px; display:flex; flexDirection: row';
+const styleElements = 'color:black; font-size: 1.2rem; margin: 25px 20px; padding: 10px 0; text-align: center'; 
+const menuStyle = 'width:100%; display:flex; flexDirection: row';
 let paraContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod';
 let paraContentTwo = 'Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non.'
 let addSectionCount = 4;
@@ -43,7 +43,7 @@ let addMoreAchors = () => {
     newAnchor.setAttribute('href', `#Section-${addLiCount}`);
     let liText = `Section-${addLiCount}`;
     newAnchor.textContent = liText;
-    newAnchor.style.cssText = styleElements;
+    newAnchor.style.cssText = 'color: black';
     newLiElement.appendChild(newAnchor);
     navBar.appendChild(newLiElement);
     navMenu.appendChild(navBar);
@@ -88,6 +88,7 @@ let buildNav = () => {
         newLiElement.appendChild(newAnchor);
         let liText = `Section-${count}`;
         newAnchor.textContent = liText;
+        newAnchor.style.cssText = 'color:black';
         newLiElement.style.cssText = styleElements;
         navBar.appendChild(newLiElement);
         count += 1;
@@ -112,8 +113,10 @@ window.addEventListener('scroll', () => {
         // Add or remove active class
         if (section.offsetTop <= fromTop + 200 && section.offsetTop + section.offsetHeight - 200 > fromTop) {
             section.classList.add('your-active-class');
+            element.classList.add('link_active');
         } else {
             section.classList.remove('your-active-class');
+            element.classList.remove('link_active');
         }
     });
  });
@@ -158,7 +161,7 @@ navBar.style.cssText = menuStyle;
 navBar.style.flexWrap = 'wrap';
 navBar.style.justifyContent= 'space-evenly';
 menuAchor.textContent = 'New Section';
-menuAchor.style.cssText = styleElements;
+menuAchor.style.cssText = 'color: black';
 menuAchor.addEventListener('click', ()=> {
     addSection();
     addMoreAchors(); 

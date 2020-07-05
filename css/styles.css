@@ -68,10 +68,18 @@ section {
     padding-left: 0;
     margin: 0;
     text-align: right;
+    list-style: none;
+    text-decoration: none;
 }
 
-.navbar__menu li {
+.navbar__menu li a{
     display: inline-block;
+    text-decoration: none;
+    list-style: none;
+}
+
+li a:hover{
+    text-decoration: underline;
 }
 
 .navbar__menu .menu__link {
@@ -88,6 +96,11 @@ section {
     transition: ease 0.3s all;
 }
 
+@media only screen and (min-width: 1127px){
+    #navbar_list ul{
+        height: 300px;
+    }
+}
 /* Header Styles */
 .page__header {
     background: #fff;
@@ -206,6 +219,11 @@ section.your-active-class .landing__container::before {
 section.your-active-class .landing__container::after {
     opacity: 1;
     animation: rotate 5s linear 0s infinite forwards reverse;
+}
+
+a.link_active {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0) 100%);
 }
 
 /* Section Active Styles Keyframe Animations */
